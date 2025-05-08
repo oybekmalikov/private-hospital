@@ -39,6 +39,12 @@ export class CreatePatientDto {
   })
   @IsStrongPassword({}, { message: "Password must be strong!" })
   password: string;
+  @ApiProperty({
+    example: "mySecretPassword",
+    description: "Patient's confirm password",
+  })
+  @IsStrongPassword({}, { message: "Confirm pasword not matched" })
+  confirm_password: string;
 
   @ApiProperty({
     example: "+998901234567",

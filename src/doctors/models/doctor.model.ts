@@ -4,12 +4,16 @@ import {
 	Column,
 	DataType,
 	ForeignKey,
+	HasMany,
 	Model,
 	Table,
 } from "sequelize-typescript";
 import { Department } from "../../departments/models/department.model";
+import { MedicalRecord } from "../../medical_records/models/medical_record.model";
+import { PatientAdmission } from "../../patient_admissions/models/patient_admission.model";
+import { Schedule } from "../../schedules/models/schedule.model";
 
-interface IDoctorCreationDto {
+interface IDoctorCreationAttr {
 	first_name: string;
 	last_name: string;
 	email: string;
@@ -25,7 +29,7 @@ interface IDoctorCreationDto {
 }
 
 @Table({ tableName: "doctors", freezeTableName: true })
-export class Doctor extends Model<Doctor, IDoctorCreationDto> {
+export class Doctor extends Model<Doctor, IDoctorCreationAttr> {
 	@ApiProperty({
 		example: 1,
 		description: "Doctor's unique id number",
@@ -62,7 +66,7 @@ export class Doctor extends Model<Doctor, IDoctorCreationDto> {
 		example: "mySecretPassword",
 		description: "Doctor's strong password",
 	})
-	@Column({ type: DataType.STRING(50) })
+	@Column({ type: DataType.STRING })
 	declare password: string;
 
 	@ApiProperty({
@@ -129,4 +133,10 @@ export class Doctor extends Model<Doctor, IDoctorCreationDto> {
 	declare refresh_token: string;
 	@BelongsTo(() => Department)
 	department: Department;
+	@HasMany(() => PatientAdmission)
+	patientAdmissions: PatientAdmission[];
+	@HasMany(() => Schedule)
+	schedules: Schedule[];
+	@HasMany(() => MedicalRecord)
+	medicalRecords: MedicalRecord[];
 }

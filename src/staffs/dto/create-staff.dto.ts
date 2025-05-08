@@ -8,6 +8,7 @@ import {
 	IsStrongPassword,
 	Matches,
 } from "class-validator";
+import { IsInt } from 'class-validator'
 
 export class CreateStaffDto {
 	@ApiProperty({
@@ -75,7 +76,7 @@ export class CreateStaffDto {
 		example: 1,
 		description: "Staff's department id",
 	})
-	@IsBoolean({ message: "department id must be number" })
+	@IsInt({ message: "department_id must be an integer" })
 	department_id: number;
 	@ApiProperty({
 		example: "true/false",

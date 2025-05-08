@@ -4,13 +4,15 @@ import {
 	Column,
 	DataType,
 	ForeignKey,
+	HasMany,
 	Model,
 	Table,
 } from "sequelize-typescript";
 import { Department } from "../../departments/models/department.model";
+import { PatientAdmission } from "../../patient_admissions/models/patient_admission.model";
 import { RoomType } from "../../room_types/models/room_type.model";
 
-interface IRoomCreationDto {
+interface IRoomCreationAttr {
 	type_id: number;
 	room_number: number;
 	department_id: number;
@@ -19,7 +21,7 @@ interface IRoomCreationDto {
 }
 
 @Table({ tableName: "rooms", freezeTableName: true })
-export class Room extends Model<Room, IRoomCreationDto> {
+export class Room extends Model<Room, IRoomCreationAttr> {
 	@ApiProperty({
 		example: 1,
 		description: "Room's unique id number",
@@ -69,4 +71,6 @@ export class Room extends Model<Room, IRoomCreationDto> {
 	department: Department;
 	@BelongsTo(() => RoomType)
 	roomType: RoomType;
+	@HasMany(() => PatientAdmission)
+	patientAdmissions: PatientAdmission[];
 }

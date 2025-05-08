@@ -9,7 +9,7 @@ import {
 } from "sequelize-typescript";
 import { Department } from "../../departments/models/department.model";
 
-interface IStaffCreationDto {
+interface IStaffCreationAttr {
 	first_name: string;
 	last_name: string;
 	email: string;
@@ -23,7 +23,7 @@ interface IStaffCreationDto {
 }
 
 @Table({ tableName: "staffs", freezeTableName: true })
-export class Staff extends Model<Staff, IStaffCreationDto> {
+export class Staff extends Model<Staff, IStaffCreationAttr> {
 	@ApiProperty({
 		example: 1,
 		description: "Staff's unique id number",
@@ -60,7 +60,7 @@ export class Staff extends Model<Staff, IStaffCreationDto> {
 		example: "mySecretPassword",
 		description: "Staff's strong password",
 	})
-	@Column({ type: DataType.STRING(50) })
+	@Column({ type: DataType.STRING })
 	declare password: string;
 
 	@ApiProperty({

@@ -1,11 +1,16 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import { MedHistory } from "../../med_history/models/med_history.model";
+import { MedicalRecord } from "../../medical_records/models/medical_record.model";
+import { PatientAdmission } from "../../patient_admissions/models/patient_admission.model";
+import { Payment } from "../../payments/models/payment.model";
 
-interface IPatientCreationDto {
+interface IPatientCreationAttr {
 	first_name: string;
 	last_name: string;
 	email: string;
 	password: string;
+	confirm_password: string;
 	phone: string;
 	gender: string;
 	date_of_birth: Date;
@@ -14,7 +19,7 @@ interface IPatientCreationDto {
 }
 
 @Table({ tableName: "patients", freezeTableName: true })
-export class Patient extends Model<Patient, IPatientCreationDto> {
+export class Patient extends Model<Patient, IPatientCreationAttr> {
 	@ApiProperty({
 		example: 1,
 		description: "Patient's unique id number",
@@ -51,7 +56,7 @@ export class Patient extends Model<Patient, IPatientCreationDto> {
 		example: "mySecretPassword",
 		description: "Patient's strong password",
 	})
-	@Column({ type: DataType.STRING(50) })
+	@Column({ type: DataType.STRING })
 	declare password: string;
 
 	@ApiProperty({
@@ -93,4 +98,12 @@ export class Patient extends Model<Patient, IPatientCreationDto> {
 	})
 	@Column({ type: DataType.STRING })
 	declare refresh_token: string;
+	@HasMany(() => PatientAdmission)
+	patientAdmissions: PatientAdmission[];
+	@HasMany(() => Payment)
+	payments: Payment[];
+	@HasMany(() => MedicalRecord)
+	medicalRecords: MedicalRecord[];
+	@HasMany(() => MedHistory)
+	medHistories: MedHistory[];
 }

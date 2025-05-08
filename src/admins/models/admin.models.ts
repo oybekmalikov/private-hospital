@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Column, DataType, Model, Table } from "sequelize-typescript";
 
-interface IAdminCreationDto {
+interface IAdminCreationAttr {
 	full_name: string;
 	email: string;
 	password: string;
@@ -10,7 +10,7 @@ interface IAdminCreationDto {
 	is_creator: boolean;
 }
 @Table({ tableName: "admins", freezeTableName: true })
-export class Admin extends Model<Admin, IAdminCreationDto> {
+export class Admin extends Model<Admin, IAdminCreationAttr> {
 	@ApiProperty({
 		example: 1,
 		description: "Admin's unique id number",
@@ -37,7 +37,7 @@ export class Admin extends Model<Admin, IAdminCreationDto> {
 		example: "mySecretPassword",
 		description: "Admin's strong password",
 	})
-	@Column({ type: DataType.STRING(50) })
+	@Column({ type: DataType.STRING })
 	declare password: string;
 	@ApiProperty({
 		example: "+998901234567",

@@ -4,7 +4,7 @@ import { Doctor } from "../../doctors/models/doctor.model";
 import { Room } from "../../rooms/models/room.model";
 import { Staff } from "../../staffs/models/staff.model";
 
-interface IDepartmentCreationDto {
+interface IDepartmentCreationAttr {
 	name: string;
 	description: string;
 	location: string;
@@ -12,7 +12,7 @@ interface IDepartmentCreationDto {
 }
 
 @Table({ tableName: "departments", freezeTableName: true })
-export class Department extends Model<Department, IDepartmentCreationDto> {
+export class Department extends Model<Department, IDepartmentCreationAttr> {
 	@ApiProperty({
 		example: 1,
 		description: "Department's unique id number",

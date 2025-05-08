@@ -2,14 +2,14 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
 import { Room } from "../../rooms/models/room.model";
 
-interface IRoomTypeCreationDto {
+interface IRoomTypeCreationAttr {
 	name: string;
 	description: string;
 	price: number;
 }
 
 @Table({ tableName: "room_types", freezeTableName: true })
-export class RoomType extends Model<RoomType, IRoomTypeCreationDto> {
+export class RoomType extends Model<RoomType, IRoomTypeCreationAttr> {
 	@ApiProperty({
 		example: 1,
 		description: "Room type's unique id number",
