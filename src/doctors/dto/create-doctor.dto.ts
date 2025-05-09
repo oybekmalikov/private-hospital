@@ -100,4 +100,10 @@ export class CreateDoctorDto {
 	})
 	@IsBoolean({ message: "is_active must be boolean" })
 	is_active: boolean;
+	@ApiProperty({
+		example: "true/false",
+		description: "Doctor's is head doctor?",
+	})
+	@IsBoolean({ message: "isHeadDoctor must be boolean" })
+	isHeadDoctor: boolean;
 }

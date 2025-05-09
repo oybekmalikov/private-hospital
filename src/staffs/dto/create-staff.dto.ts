@@ -3,12 +3,12 @@ import {
 	IsBoolean,
 	IsDateString,
 	IsEmail,
+	IsInt,
 	IsNotEmpty,
 	IsString,
 	IsStrongPassword,
 	Matches,
 } from "class-validator";
-import { IsInt } from 'class-validator'
 
 export class CreateStaffDto {
 	@ApiProperty({
@@ -84,4 +84,10 @@ export class CreateStaffDto {
 	})
 	@IsBoolean({ message: "is_active must be boolean" })
 	is_active: boolean;
+	@ApiProperty({
+		example: "true/false",
+		description: "Staff's is Manager?",
+	})
+	@IsBoolean({ message: "is manager must be boolean" })
+	isManager: boolean;
 }

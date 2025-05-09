@@ -37,6 +37,11 @@ import { Schedule } from "./schedules/models/schedule.model";
 import { SchedulesModule } from "./schedules/schedules.module";
 import { Staff } from "./staffs/models/staff.model";
 import { StaffsModule } from "./staffs/staffs.module";
+import { AuthPatientsModule } from './auth_patients/auth_patients.module';
+import { AuthStaffsModule } from './auth_staffs/auth_staffs.module';
+import { AuthDoctorsModule } from './auth_doctors/auth_doctors.module';
+import { AuthAdminsModule } from './auth_admins/auth_admins.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
 	imports: [
@@ -90,6 +95,11 @@ import { StaffsModule } from "./staffs/staffs.module";
 		MedicinesModule,
 		MedicineCategoriesModule,
 		MedHistoryModule,
+		AuthPatientsModule,
+		AuthStaffsModule,
+		AuthDoctorsModule,
+		AuthAdminsModule,
+		MailModule,
 	],
 	controllers: [],
 	providers: [],

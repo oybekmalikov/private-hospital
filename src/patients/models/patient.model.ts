@@ -98,6 +98,8 @@ export class Patient extends Model<Patient, IPatientCreationAttr> {
 	})
 	@Column({ type: DataType.STRING })
 	declare refresh_token: string;
+	@Column({ type: DataType.UUID, defaultValue: DataType.UUIDV4 })
+	declare activation_link: string;
 	@HasMany(() => PatientAdmission)
 	patientAdmissions: PatientAdmission[];
 	@HasMany(() => Payment)

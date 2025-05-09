@@ -37,4 +37,13 @@ export class StaffsService {
 	remove(id: number) {
 		return this.staffModel.destroy({ where: { id } });
 	}
+	async updateRefreshToken(staffId: number, refreshToken: string) {
+		const updatedStaff = this.staffModel.update(
+			{
+				refresh_token: refreshToken,
+			},
+			{ where: { id: staffId } }
+		);
+		return updatedStaff;
+	}
 }

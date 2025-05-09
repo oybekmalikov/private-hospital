@@ -8,5 +8,6 @@ import { Doctor } from "./models/doctor.model";
 	imports: [SequelizeModule.forFeature([Doctor])],
 	controllers: [DoctorsController],
 	providers: [DoctorsService],
+	exports: [DoctorsService],
 })
 export class DoctorsModule {}

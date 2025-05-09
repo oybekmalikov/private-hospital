@@ -20,6 +20,7 @@ interface IStaffCreationAttr {
 	position: string;
 	department_id: number;
 	is_active: boolean;
+	isManager: boolean;
 }
 
 @Table({ tableName: "staffs", freezeTableName: true })
@@ -95,7 +96,7 @@ export class Staff extends Model<Staff, IStaffCreationAttr> {
 		example: "true/false",
 		description: "Staff's is active?",
 	})
-	@Column({ type: DataType.BOOLEAN })
+	@Column({ type: DataType.BOOLEAN, defaultValue: true })
 	declare is_active: boolean;
 
 	@ApiProperty({
@@ -112,6 +113,12 @@ export class Staff extends Model<Staff, IStaffCreationAttr> {
 	})
 	@Column({ type: DataType.STRING })
 	declare refresh_token: string;
+	@ApiProperty({
+		example: "...",
+		description: "Staff's additional role",
+	})
+	@Column({ type: DataType.BOOLEAN })
+	declare isManager: boolean;
 	@BelongsTo(() => Department)
 	department: Department;
 }

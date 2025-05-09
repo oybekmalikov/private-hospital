@@ -40,4 +40,13 @@ export class DoctorsService {
 	remove(id: number) {
 		return this.doctorModel.destroy({ where: { id } });
 	}
+	async updateRefreshToken(doctorId: number, refreshToken: string) {
+		const updatedDoctor = this.doctorModel.update(
+			{
+				refresh_token: refreshToken,
+			},
+			{ where: { id: doctorId } }
+		);
+		return updatedDoctor;
+	}
 }

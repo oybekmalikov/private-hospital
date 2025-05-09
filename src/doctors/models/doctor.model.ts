@@ -26,6 +26,7 @@ interface IDoctorCreationAttr {
 	department_id: number;
 	license_no: string;
 	is_active: boolean;
+	isHeadDoctor: boolean;
 }
 
 @Table({ tableName: "doctors", freezeTableName: true })
@@ -124,6 +125,12 @@ export class Doctor extends Model<Doctor, IDoctorCreationAttr> {
 	})
 	@Column({ type: DataType.BOOLEAN })
 	declare is_active: boolean;
+	@ApiProperty({
+		example: "true/false",
+		description: "Doctor's is head doctor?",
+	})
+	@Column({ type: DataType.BOOLEAN })
+	declare isHeadDoctor: boolean;
 
 	@ApiProperty({
 		example: "...",
