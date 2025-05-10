@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { ForbiddenException, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { CreateMedHistoryDto } from "./dto/create-med_history.dto";
 import { UpdateMedHistoryDto } from "./dto/update-med_history.dto";
@@ -27,5 +27,25 @@ export class MedHistoryService {
 
 	remove(id: number) {
 		return this.medHistoryModel.destroy({ where: { id } });
+	}
+	async findByPatientId(id: number) {
+		const data = await this.medHistoryModel.findAll({
+			where: { patient_id: id },
+			include: { all: true },
+		});
+		if (!data.length) {
+			return { message: "You don't have any medical history data" };
+		}
+		return data;
+	}
+	async findOneByPatientId(id: number, patientId: number) {
+		const data = await this.medHistoryModel.findOne({
+			where: { id, patient_id: patientId },
+			include: { all: true },
+		});
+		if (!data) {
+			throw new ForbiddenException("You can access only your own data.");
+		}
+		return data;
 	}
 }

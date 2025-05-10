@@ -31,4 +31,50 @@ export class MedicalRecordsService {
 	remove(id: number) {
 		return this.medicalRecordModel.destroy({ where: { id } });
 	}
+	async findByDoctorId(id: number) {
+		const data = await this.medicalRecordModel.findAll({
+			where: { doctor_id: id },
+			include: { all: true },
+		});
+		if (!data.length) {
+			return {
+				status: false,
+				message: "You don't have any medical record data",
+			};
+		}
+		return data;
+	}
+	async findByPatientId(id: number) {
+		const data = await this.medicalRecordModel.findAll({
+			where: { patient_id: id },
+			include: { all: true },
+		});
+		if (!data.length) {
+			return {
+				status: false,
+				message: "You don't have any medical record data",
+			};
+		}
+		return data;
+	}
+	async findOneByDoctorId(id: number, docId: number) {
+		const data = await this.medicalRecordModel.findOne({
+			where: { id, doctor_id: docId },
+			include: { all: true },
+		});
+		if (!data) {
+			return { status: false, message: "You can access only your own data." };
+		}
+		return data;
+	}
+	async findOneByPatientId(id: number, patientId: number) {
+		const data = await this.medicalRecordModel.findOne({
+			where: { id, patient_id: patientId },
+			include: { all: true },
+		});
+		if (!data) {
+			return { status: false, message: "You can access only your own data." };
+		}
+		return data;
+	}
 }

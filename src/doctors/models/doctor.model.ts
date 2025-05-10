@@ -8,6 +8,7 @@ import {
 	Model,
 	Table,
 } from "sequelize-typescript";
+import { Appointment } from "../../appointments/models/appointment.model";
 import { Department } from "../../departments/models/department.model";
 import { MedicalRecord } from "../../medical_records/models/medical_record.model";
 import { PatientAdmission } from "../../patient_admissions/models/patient_admission.model";
@@ -146,4 +147,6 @@ export class Doctor extends Model<Doctor, IDoctorCreationAttr> {
 	schedules: Schedule[];
 	@HasMany(() => MedicalRecord)
 	medicalRecords: MedicalRecord[];
+	@HasMany(() => Appointment)
+	appoinment: Appointment[];
 }

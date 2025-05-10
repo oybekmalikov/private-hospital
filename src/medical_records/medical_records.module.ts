@@ -8,5 +8,6 @@ import { MedicalRecord } from "./models/medical_record.model";
 	imports: [SequelizeModule.forFeature([MedicalRecord])],
 	controllers: [MedicalRecordsController],
 	providers: [MedicalRecordsService],
+	exports: [MedicalRecordsService],
 })
 export class MedicalRecordsModule {}
