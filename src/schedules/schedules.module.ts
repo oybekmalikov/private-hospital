@@ -8,5 +8,6 @@ import { SchedulesService } from "./schedules.service";
 	imports: [SequelizeModule.forFeature([Schedule])],
 	controllers: [SchedulesController],
 	providers: [SchedulesService],
+	exports: [SchedulesService],
 })
 export class SchedulesModule {}

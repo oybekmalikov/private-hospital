@@ -42,6 +42,7 @@ import { AuthStaffsModule } from './auth_staffs/auth_staffs.module';
 import { AuthDoctorsModule } from './auth_doctors/auth_doctors.module';
 import { AuthAdminsModule } from './auth_admins/auth_admins.module';
 import { MailModule } from './mail/mail.module';
+import { AdditionalTasksModule } from './additional-tasks/additional-tasks.module';
 
 @Module({
 	imports: [
@@ -100,6 +101,7 @@ import { MailModule } from './mail/mail.module';
 		AuthDoctorsModule,
 		AuthAdminsModule,
 		MailModule,
+		AdditionalTasksModule,
 	],
 	controllers: [],
 	providers: [],

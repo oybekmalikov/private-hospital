@@ -14,6 +14,7 @@ import { AccessControlGuard } from "../common/Guards/access-control.guard";
 import { AuthGuard } from "../common/Guards/auth.guard";
 import { SelfGuard } from "../common/Guards/self.guard";
 import { DoctorsService } from "./doctors.service";
+import { ChangePasswordDto } from "./dto/change-pass.dto";
 import { CreateDoctorDto } from "./dto/create-doctor.dto";
 import { UpdateDoctorDto } from "./dto/update-doctor.dto";
 import { Doctor } from "./models/doctor.model";
@@ -45,6 +46,20 @@ export class DoctorsController {
 	@Get()
 	findAll() {
 		return this.doctorsService.findAll();
+	}
+
+	@ApiOperation({ summary: "Change Doctors password" })
+	@ApiResponse({ status: 200, description: "message", type: String })
+	@UseGuards(
+		new AccessControlGuard({ doctors: ["doctor", "head_doctor"] }, "doctors")
+	)
+	@UseGuards(AuthGuard)
+	@Post("change-password/:id")
+	changePass(
+		@Param("id") id: string,
+		@Body() changePasswordDto: ChangePasswordDto
+	) {
+		return this.doctorsService.changePassword(+id, changePasswordDto);
 	}
 
 	@ApiOperation({ summary: "Get One Doctor By Id" })

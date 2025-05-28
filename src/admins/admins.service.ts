@@ -38,12 +38,12 @@ export class AdminsService {
 	remove(id: number) {
 		return this.adminModel.destroy({ where: { id } });
 	}
-	async updateRefreshToken(doctorId: number, refreshToken: string) {
+	async updateRefreshToken(adminId: number, refreshToken: string) {
 		const updatedAdmin = this.adminModel.update(
 			{
 				refresh_token: refreshToken,
 			},
-			{ where: { id: doctorId } }
+			{ where: { id: adminId } }
 		);
 		return updatedAdmin;
 	}

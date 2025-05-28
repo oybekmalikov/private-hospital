@@ -9,7 +9,7 @@ export class MailService {
 		const url = `${process.env.API_HOST}/api/patients/activate/${patient.activation_link}`;
 		await this.mailerService.sendMail({
 			to: patient.email,
-			subject: "Welcome to 'Discount' App",
+			subject: "Welcome to 'Private hospital' App",
 			html: `<h1>Hello! Dear ${patient.first_name} ${patient.last_name},</h1>
 			<h2>Please click below to confirmation</h2>
 			<p>

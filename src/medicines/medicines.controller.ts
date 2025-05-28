@@ -6,8 +6,12 @@ import {
 	Param,
 	Patch,
 	Post,
+	UseGuards,
 } from "@nestjs/common";
 import { ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { accessMatrix } from "../app.constants";
+import { AccessControlGuard } from "../common/Guards/access-control.guard";
+import { AuthGuard } from "../common/Guards/auth.guard";
 import { CreateMedicineDto } from "./dto/create-medicine.dto";
 import { UpdateMedicineDto } from "./dto/update-medicine.dto";
 import { MedicinesService } from "./medicines.service";
@@ -20,6 +24,8 @@ export class MedicinesController {
 	@ApiOperation({ summary: "Add Medicine" })
 	@ApiResponse({ status: 201, description: "Create Medicine", type: Medicine })
 	@Post()
+	@UseGuards(new AccessControlGuard(accessMatrix, "medicines"))
+	@UseGuards(AuthGuard)
 	create(@Body() createMedicineDto: CreateMedicineDto) {
 		return this.medicinesService.create(createMedicineDto);
 	}
@@ -48,6 +54,8 @@ export class MedicinesController {
 		description: "Medicine's updated info",
 		type: [Medicine],
 	})
+	@UseGuards(new AccessControlGuard(accessMatrix, "medicines"))
+	@UseGuards(AuthGuard)
 	@Patch(":id")
 	update(
 		@Param("id") id: string,
@@ -58,6 +66,8 @@ export class MedicinesController {
 
 	@ApiOperation({ summary: "Delete One Medicine By Id" })
 	@ApiResponse({ status: 200, description: "Return Effected", type: Number })
+	@UseGuards(new AccessControlGuard(accessMatrix, "medicines"))
+	@UseGuards(AuthGuard)
 	@Delete(":id")
 	remove(@Param("id") id: string) {
 		return this.medicinesService.remove(+id);

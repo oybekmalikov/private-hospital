@@ -6,8 +6,12 @@ import {
 	Param,
 	Patch,
 	Post,
+	UseGuards,
 } from "@nestjs/common";
 import { ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { accessMatrix } from "../app.constants";
+import { AccessControlGuard } from "../common/Guards/access-control.guard";
+import { AuthGuard } from "../common/Guards/auth.guard";
 import { CreateMedicineCategoryDto } from "./dto/create-medicine_category.dto";
 import { UpdateMedicineCategoryDto } from "./dto/update-medicine_category.dto";
 import { MedicineCategoriesService } from "./medicine_categories.service";
@@ -25,6 +29,8 @@ export class MedicineCategoriesController {
 		description: "Create Medicine Category",
 		type: MedicineCategory,
 	})
+	@UseGuards(new AccessControlGuard(accessMatrix, "medicine_categories"))
+	@UseGuards(AuthGuard)
 	@Post()
 	create(@Body() createMedicineCategoryDto: CreateMedicineCategoryDto) {
 		return this.medicineCategoriesService.create(createMedicineCategoryDto);
@@ -59,6 +65,8 @@ export class MedicineCategoriesController {
 		type: [MedicineCategory],
 	})
 	@Patch(":id")
+	@UseGuards(new AccessControlGuard(accessMatrix, "medicine_categories"))
+	@UseGuards(AuthGuard)
 	update(
 		@Param("id") id: string,
 		@Body() updateMedicineCategoryDto: UpdateMedicineCategoryDto
@@ -71,6 +79,8 @@ export class MedicineCategoriesController {
 
 	@ApiOperation({ summary: "Delete One Medicine Category By Id" })
 	@ApiResponse({ status: 200, description: "Return Effected", type: Number })
+	@UseGuards(new AccessControlGuard(accessMatrix, "medicine_categories"))
+	@UseGuards(AuthGuard)
 	@Delete(":id")
 	remove(@Param("id") id: string) {
 		return this.medicineCategoriesService.remove(+id);

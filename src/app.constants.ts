@@ -1,4 +1,13 @@
 export const ROLES_KEY = "roles";
+export const WeekDays = [
+	"Sunday",
+	"Monday",
+	"Tuesday",
+	"Wednesday",
+	"Thursday",
+	"Friday",
+	"Saturday",
+];
 export const accessMatrix = {
 	admins: ["superadmin", "admin"],
 	doctors: ["superadmin", "admin", "head_doctor", "doctor"],
@@ -25,17 +34,18 @@ export const accessMatrix = {
 	schedules: ["superadmin", "admin", "head_doctor", "doctor"],
 	departments: ["superadmin", "admin", "head_doctor", "manager"],
 	services: ["superadmin", "admin", "head_doctor", "manager"],
-	payments: ["superadmin", "admin", "manager", "doctor","patient"],
-	rooms: ["superadmin", "admin", "head_doctor", "manager"],
-	room_types: ["superadmin", "admin", "head_doctor", "manager"],
+	payments: ["superadmin", "admin", "manager", "doctor", "patient"],
+	rooms: ["superadmin", "admin", "staff", "manager"],
+	room_types: ["superadmin", "admin", "manager", "staff"],
 	patient_admissions: [
 		"superadmin",
 		"admin",
 		"head_doctor",
-		"doctor",
 		"manager",
-		"patient",
+		"staff",
 	],
 	lab: ["superadmin", "admin", "head_doctor", "doctor", "patient"],
 	med_history: ["superadmin", "admin", "head_doctor", "patient"],
+	medicine_categories: ["superadmin", "admin", "staff"],
+	medicines: ["superadmin", "admin", "staff"],
 };

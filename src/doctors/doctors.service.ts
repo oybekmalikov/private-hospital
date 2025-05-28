@@ -1,6 +1,10 @@
 import { ConflictException, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import * as bcrypt from "bcrypt";
+import { Sequelize } from "sequelize-typescript";
+import { Appointment } from "../appointments/models/appointment.model";
+import { Payment } from "../payments/models/payment.model";
+import { ChangePasswordDto } from "./dto/change-pass.dto";
 import { CreateDoctorDto } from "./dto/create-doctor.dto";
 import { UpdateDoctorDto } from "./dto/update-doctor.dto";
 import { Doctor } from "./models/doctor.model";
@@ -20,6 +24,17 @@ export class DoctorsService {
 			password: hashshedPassword,
 		});
 		return newDoctor;
+	}
+	async changePassword(id: number, changePasswordDto: ChangePasswordDto) {
+		console.log(changePasswordDto);
+		if (changePasswordDto.password !== changePasswordDto.confirm) {
+			return { message: "Password and confirm password not matched" };
+		}
+		await this.doctorModel.update(
+			{ password: changePasswordDto.password },
+			{ where: { id } }
+		);
+		return { message: "Password changed" };
 	}
 
 	findAll() {
@@ -48,5 +63,34 @@ export class DoctorsService {
 			{ where: { id: doctorId } }
 		);
 		return updatedDoctor;
+	}
+	async totalPaymentToDoctor() {
+		return await this.doctorModel.findAll({
+			attributes: [
+				"id",
+				"first_name",
+				"last_name",
+				[
+					Sequelize.fn("SUM", Sequelize.col("appointments.payments.amount")),
+					"total_income",
+				],
+			],
+			include: [
+				{
+					model: Appointment,
+					as: "appointments",
+					attributes: [],
+					include: [
+						{
+							model: Payment,
+							as: "payments",
+							attributes: [],
+						},
+					],
+				},
+			],
+			group: ["Doctor.id"],
+			order: [[Sequelize.literal("total_income"), "DESC"]],
+		});
 	}
 }

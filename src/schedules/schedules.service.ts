@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
+import { Op } from "sequelize";
 import { CreateScheduleDto } from "./dto/create-schedule.dto";
 import { UpdateScheduleDto } from "./dto/update-schedule.dto";
 import { Schedule } from "./models/schedule.model";
@@ -27,5 +28,16 @@ export class SchedulesService {
 
 	remove(id: number) {
 		return this.schedulesModel.destroy({ where: { id } });
+	}
+	async findDoctorByTime(doctorId, weekday, time) {
+		const schedule = await this.schedulesModel.findOne({
+			where: {
+				doctor_id: doctorId,
+				weekday,
+				start_time: { [Op.lte]: time },
+				end_time: { [Op.gt]: time },
+			},
+		});
+		return schedule;
 	}
 }
