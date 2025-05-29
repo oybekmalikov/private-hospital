@@ -8,6 +8,8 @@ import { AppModule } from "./app.module";
 async function start() {
 	try {
 		const PORT = process.env.PORT || 3030;
+		const HOST = process.env.HOST || "localhost";
+
 		const app = await NestFactory.create(AppModule);
 		app.useGlobalPipes(new ValidationPipe());
 		app.setGlobalPrefix("api");
@@ -40,8 +42,8 @@ async function start() {
 		SwaggerModule.setup("api/docs", app, document);
 		// const logger = app.get(LoggerService);
 		// app.useGlobalFilters(new ErrorHandler(logger));
-		await app.listen(PORT, () => {
-			console.log(`Server started on http://localhost:${PORT}`);
+		await app.listen(PORT, HOST, () => {
+			console.log(`Server started on http://${HOST}:${PORT}`);
 		});
 	} catch (error) {
 		console.log(error);
