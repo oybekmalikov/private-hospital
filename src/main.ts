@@ -17,8 +17,8 @@ async function start() {
 		app.enableCors({
 			origin: (origin, callback) => {
 				const allowedOrigins = [
+					"http://3.149.47.149:3000",
 					"http://localhost:3000",
-					"https://localhost:3000",
 					"https://private-hospital.uz",
 				];
 				if (!origin || allowedOrigins.includes(origin)) {
@@ -42,7 +42,7 @@ async function start() {
 		SwaggerModule.setup("api/docs", app, document);
 		// const logger = app.get(LoggerService);
 		// app.useGlobalFilters(new ErrorHandler(logger));
-		await app.listen(PORT, "3.149.47.149", () => {
+		await app.listen(PORT, "0.0.0.0", () => {
 			console.log(`Server started on http://${HOST}:${PORT}`);
 		});
 	} catch (error) {
