@@ -42,7 +42,7 @@ async function start() {
 		SwaggerModule.setup("api/docs", app, document);
 		// const logger = app.get(LoggerService);
 		// app.useGlobalFilters(new ErrorHandler(logger));
-		await app.listen(PORT, "0.0.0.0", () => {
+		await app.listen(PORT, () => {
 			console.log(`Server started on http://${HOST}:${PORT}`);
 		});
 	} catch (error) {
